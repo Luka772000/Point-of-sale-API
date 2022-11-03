@@ -1,5 +1,4 @@
 using POS_Backend.Models;
-using POS_Backend.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using POS_Backend.Models;
+using POS_Backend.Seeds;
 using System.Threading.Tasks;
-using POS_Backend.Data;
 
 namespace POS_Backend
 {
@@ -32,7 +31,7 @@ namespace POS_Backend
             var userManager = services.GetRequiredService<UserManager<AppUser>>();
             var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
             await context.Database.MigrateAsync();
-            await Seed.SeedUsers(roleManager);
+            await Seed.SeedUsers(userManager,roleManager);
             await host.RunAsync();
 
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace POS_Backend.Data
+namespace POS_Backend.Seeds
 {
     public class Seed
     {
