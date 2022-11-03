@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace POS_Backend.Dto
+namespace POS_Backend.DTOs.User
 {
     public class RegisterDto
     {

@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS_Backend.Models
 {
-    [Index(nameof(Sifra), IsUnique = true)]
     public class KUPAC
     {
         [Key]
         public int Id { get; set; }
-        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Sifra { get; set; }
         [Required]
         [Column(TypeName = "varchar(50)")]

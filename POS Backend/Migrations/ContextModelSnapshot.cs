@@ -234,12 +234,11 @@ namespace POS_Backend.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("Sifra")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Sifra")
-                        .IsUnique();
 
                     b.ToTable("Kupci");
                 });

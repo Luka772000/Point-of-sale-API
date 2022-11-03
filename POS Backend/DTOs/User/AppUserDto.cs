@@ -1,4 +1,4 @@
-﻿namespace POS_Backend.Dto
+﻿namespace POS_Backend.DTOs.User
 {
     public class AppUserDto
     {

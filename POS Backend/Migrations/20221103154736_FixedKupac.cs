@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace POS_Backend.Migrations
 {
-    public partial class Merge : Migration
+    public partial class FixedKupac : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +55,8 @@ namespace POS_Backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Sifra = table.Column<int>(type: "integer", nullable: false),
+                    Sifra = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Naziv = table.Column<string>(type: "varchar(50)", nullable: false),
                     Adresa = table.Column<string>(type: "varchar(50)", nullable: false),
                     Mjesto = table.Column<string>(type: "varchar(50)", nullable: false)
@@ -289,12 +290,6 @@ namespace POS_Backend.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kupci_Sifra",
-                table: "Kupci",
-                column: "Sifra",
                 unique: true);
 
             migrationBuilder.CreateIndex(

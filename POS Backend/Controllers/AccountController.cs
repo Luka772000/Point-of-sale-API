@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using POS_Backend.Dto;
+using POS_Backend.DTOs.User;
 
 namespace POS_Backend.Controllers
 {

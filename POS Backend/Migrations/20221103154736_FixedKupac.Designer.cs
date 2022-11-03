@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221103140544_Merge")]
-    partial class Merge
+    [Migration("20221103154736_FixedKupac")]
+    partial class FixedKupac
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,12 +236,11 @@ namespace POS_Backend.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("Sifra")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Sifra")
-                        .IsUnique();
 
                     b.ToTable("Kupci");
                 });

@@ -3,6 +3,7 @@ namespace POS_Backend.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IKupac Kupci { get; }
         IProizvod Proizvodi { get; }
         int Complete();
     }
