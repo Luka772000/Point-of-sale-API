@@ -1,3 +1,5 @@
+using POS_Backend.Models;
+using POS_Backend.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,32 +15,40 @@ namespace POS_Backend
 {
     public class Program
     {
+
+
         public static async Task Main(string[] args)
         {
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
+
+
+
+            //Dodavanje usermanagera i rolemanagera iz IDENTITY
+
             var context = services.GetRequiredService<Context>();
-            var customerManager = services.GetRequiredService<UserManager<AppUser>>();
+            var userManager = services.GetRequiredService<UserManager<AppUser>>();
             var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
             await context.Database.MigrateAsync();
-            await Seed.SeedUsers(customerManager, roleManager);
+            await Seed.SeedUsers(roleManager);
             await host.RunAsync();
 
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                })
-                .UseNLog();  // NLog: Setup NLog for Dependency injection
+            .ConfigureWebHostDefaults(WebHostBuilderOptions =>
+            {
+                WebHostBuilderOptions.UseStartup<Startup>();
+            })
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+            })
+            .UseNLog();
+
     }
 }

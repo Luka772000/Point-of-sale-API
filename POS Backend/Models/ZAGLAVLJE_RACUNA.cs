@@ -13,7 +13,7 @@ namespace POS_Backend.Models
         public int Broj { get; set; }
         [Required]
         public DateTime Datum { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "varchar(100)")]
         public string Napomena { get; set; }
         [Required]
         public int KupacId { get; set; }

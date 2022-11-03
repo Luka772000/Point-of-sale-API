@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using POS_Backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +35,11 @@ namespace POS_Backend.Models
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
-
+        public DbSet<PROIZVOD> Proizvodi { get; set; }
+        public DbSet<KUPAC> Kupci { get; set; }
+        public DbSet<ZAGLAVLJE_RACUNA> ZaglavljeRacuna { get; set; }
+        public DbSet<STAVKE_RACUNA> StavkeRacuna { get; set; }
+        
+        
     }
 }

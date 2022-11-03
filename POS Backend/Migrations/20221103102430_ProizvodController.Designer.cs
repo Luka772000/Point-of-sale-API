@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using POS_Backend.Models;
@@ -9,9 +10,10 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20221103102430_ProizvodController")]
+    partial class ProizvodController
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,9 +265,8 @@ namespace POS_Backend.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("Sifra")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("integer");
 
                     b.Property<int>("Stanje")
                         .HasColumnType("integer");
