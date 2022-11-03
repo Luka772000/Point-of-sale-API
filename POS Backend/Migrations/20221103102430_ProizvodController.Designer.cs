@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221102123103_PrviPokusaj")]
-    partial class PrviPokusaj
+    [Migration("20221103102430_ProizvodController")]
+    partial class ProizvodController
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,9 +149,6 @@ namespace POS_Backend.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -219,6 +216,147 @@ namespace POS_Backend.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("POS_Backend.Models.KUPAC", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Adresa")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Mjesto")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Sifra")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sifra")
+                        .IsUnique();
+
+                    b.ToTable("Kupci");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.PROIZVOD", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<decimal>("Cijena")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("JedinicaMjere")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Sifra")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Stanje")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Sifra")
+                        .IsUnique();
+
+                    b.ToTable("Proizvodi");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.STAVKA_RACUNA", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ProizvodId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RacunId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProizvodId");
+
+                    b.HasIndex("RacunId");
+
+                    b.ToTable("STAVKA_RACUNA");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.STAVKE_RACUNA", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Cijena")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("IznosPopusta")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Kolicina")
+                        .HasColumnType("integer");
+
+                    b.Property<double?>("Popust")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Vrijednost")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StavkeRacuna");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Broj")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Datum")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("KupacId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Napomena")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Broj")
+                        .IsUnique();
+
+                    b.HasIndex("KupacId");
+
+                    b.ToTable("ZaglavljeRacuna");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("POS_Backend.Models.AppRole", null)
@@ -274,6 +412,36 @@ namespace POS_Backend.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("POS_Backend.Models.STAVKA_RACUNA", b =>
+                {
+                    b.HasOne("POS_Backend.Models.PROIZVOD", "Proizvod")
+                        .WithMany("StavkeRacuna")
+                        .HasForeignKey("ProizvodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("POS_Backend.Models.STAVKE_RACUNA", "Racun")
+                        .WithMany("StavkeRacuna")
+                        .HasForeignKey("RacunId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proizvod");
+
+                    b.Navigation("Racun");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
+                {
+                    b.HasOne("POS_Backend.Models.KUPAC", "Kupac")
+                        .WithMany("ZaglavljeRacuna")
+                        .HasForeignKey("KupacId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kupac");
+                });
+
             modelBuilder.Entity("POS_Backend.Models.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -282,6 +450,21 @@ namespace POS_Backend.Migrations
             modelBuilder.Entity("POS_Backend.Models.AppUser", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.KUPAC", b =>
+                {
+                    b.Navigation("ZaglavljeRacuna");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.PROIZVOD", b =>
+                {
+                    b.Navigation("StavkeRacuna");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.STAVKE_RACUNA", b =>
+                {
+                    b.Navigation("StavkeRacuna");
                 });
 #pragma warning restore 612, 618
         }

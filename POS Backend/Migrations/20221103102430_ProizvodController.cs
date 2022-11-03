@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace POS_Backend.Migrations
 {
-    public partial class PrviPokusaj : Migration
+    public partial class ProizvodController : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,6 @@ namespace POS_Backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -48,6 +47,56 @@ namespace POS_Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Kupci",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Sifra = table.Column<int>(type: "integer", nullable: false),
+                    Naziv = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Adresa = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Mjesto = table.Column<string>(type: "varchar(50)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kupci", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Proizvodi",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Sifra = table.Column<int>(type: "integer", nullable: false),
+                    Naziv = table.Column<string>(type: "text", nullable: false),
+                    JedinicaMjere = table.Column<string>(type: "text", nullable: false),
+                    Cijena = table.Column<decimal>(type: "numeric", nullable: false),
+                    Stanje = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Proizvodi", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StavkeRacuna",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Kolicina = table.Column<int>(type: "integer", nullable: false),
+                    Cijena = table.Column<int>(type: "integer", nullable: false),
+                    Popust = table.Column<double>(type: "double precision", nullable: true),
+                    IznosPopusta = table.Column<decimal>(type: "numeric", nullable: false),
+                    Vrijednost = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StavkeRacuna", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +205,54 @@ namespace POS_Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ZaglavljeRacuna",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Broj = table.Column<int>(type: "integer", nullable: false),
+                    Datum = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Napomena = table.Column<string>(type: "varchar(100)", nullable: true),
+                    KupacId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ZaglavljeRacuna", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ZaglavljeRacuna_Kupci_KupacId",
+                        column: x => x.KupacId,
+                        principalTable: "Kupci",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "STAVKA_RACUNA",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProizvodId = table.Column<int>(type: "integer", nullable: false),
+                    RacunId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_STAVKA_RACUNA", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_STAVKA_RACUNA_Proizvodi_ProizvodId",
+                        column: x => x.ProizvodId,
+                        principalTable: "Proizvodi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_STAVKA_RACUNA_StavkeRacuna_RacunId",
+                        column: x => x.RacunId,
+                        principalTable: "StavkeRacuna",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +289,39 @@ namespace POS_Backend.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kupci_Sifra",
+                table: "Kupci",
+                column: "Sifra",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Proizvodi_Sifra",
+                table: "Proizvodi",
+                column: "Sifra",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_STAVKA_RACUNA_ProizvodId",
+                table: "STAVKA_RACUNA",
+                column: "ProizvodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_STAVKA_RACUNA_RacunId",
+                table: "STAVKA_RACUNA",
+                column: "RacunId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ZaglavljeRacuna_Broj",
+                table: "ZaglavljeRacuna",
+                column: "Broj",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ZaglavljeRacuna_KupacId",
+                table: "ZaglavljeRacuna",
+                column: "KupacId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +342,25 @@ namespace POS_Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "STAVKA_RACUNA");
+
+            migrationBuilder.DropTable(
+                name: "ZaglavljeRacuna");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Proizvodi");
+
+            migrationBuilder.DropTable(
+                name: "StavkeRacuna");
+
+            migrationBuilder.DropTable(
+                name: "Kupci");
         }
     }
 }

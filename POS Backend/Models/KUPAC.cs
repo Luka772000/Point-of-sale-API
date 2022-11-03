@@ -13,13 +13,13 @@ namespace POS_Backend.Models
         
         public int Sifra { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "varchar(50)")]
         public string Naziv { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "varchar(50)")]
         public string Adresa { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "varchar(50)")]
         public string Mjesto { get; set; }
         public List<ZAGLAVLJE_RACUNA> ZaglavljeRacuna { get; set; }
     }
