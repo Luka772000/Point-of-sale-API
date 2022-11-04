@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221103154736_FixedKupac")]
-    partial class FixedKupac
+    [Migration("20221104140123_new1")]
+    partial class new1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -286,30 +286,8 @@ namespace POS_Backend.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ProizvodId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RacunId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProizvodId");
-
-                    b.HasIndex("RacunId");
-
-                    b.ToTable("STAVKA_RACUNA");
-                });
-
-            modelBuilder.Entity("POS_Backend.Models.STAVKE_RACUNA", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Cijena")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Cijena")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("IznosPopusta")
                         .HasColumnType("numeric");
@@ -320,10 +298,20 @@ namespace POS_Backend.Migrations
                     b.Property<double?>("Popust")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("Vrijednost")
+                    b.Property<int>("ProizvodId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Vrijednost")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ZaglavljeRacunaId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProizvodId");
+
+                    b.HasIndex("ZaglavljeRacunaId");
 
                     b.ToTable("StavkeRacuna");
                 });
@@ -417,18 +405,18 @@ namespace POS_Backend.Migrations
                     b.HasOne("POS_Backend.Models.PROIZVOD", "Proizvod")
                         .WithMany("StavkeRacuna")
                         .HasForeignKey("ProizvodId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("POS_Backend.Models.STAVKE_RACUNA", "Racun")
+                    b.HasOne("POS_Backend.Models.ZAGLAVLJE_RACUNA", "ZaglavljeRacuna")
                         .WithMany("StavkeRacuna")
-                        .HasForeignKey("RacunId")
+                        .HasForeignKey("ZaglavljeRacunaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Proizvod");
 
-                    b.Navigation("Racun");
+                    b.Navigation("ZaglavljeRacuna");
                 });
 
             modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
@@ -462,7 +450,7 @@ namespace POS_Backend.Migrations
                     b.Navigation("StavkeRacuna");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.STAVKE_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
                 {
                     b.Navigation("StavkeRacuna");
                 });

@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using POS_Backend.DTOs.ZaglavljeRacunaDto;
+using POS_Backend.DTOs.Racun.Creating;
+using POS_Backend.DTOs.Racun.Getting;
 using POS_Backend.Interfaces;
 using POS_Backend.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,12 +23,12 @@ namespace POS_Backend.Repositories
         }
         public async Task CreateRacun(ZaglavljeRacunaDto racunDto)
         {
-            var kupac= await _context.Kupci.Where(u => u.Id == racunDto.KupacId).Include(i => i.ZaglavljeRacuna).SingleOrDefaultAsync();
+            var kupac = await _context.Kupci.Where(u => u.Id == racunDto.KupacId).Include(i => i.ZaglavljeRacuna).SingleOrDefaultAsync();
             if (kupac == null)
             {
                 throw new System.Exception("Kupac nije pronadjen");
             }
-            var zagRacuna= new ZAGLAVLJE_RACUNA
+            var zagRacuna = new ZAGLAVLJE_RACUNA
             {
                 Datum = racunDto.Datum,
                 Kupac = kupac,
@@ -32,6 +36,7 @@ namespace POS_Backend.Repositories
                 Napomena = racunDto.Napomena,
             };
             await _context.ZaglavljeRacuna.AddAsync(zagRacuna);
+            await _context.SaveChangesAsync();
             foreach (var item in racunDto.StavkeRacuna)
             {
                 var zaglavlje = await _context.ZaglavljeRacuna.Where(i => i.Id == item.ZaglavljeRacunaId).Include(i => i.StavkeRacuna).SingleOrDefaultAsync();
@@ -41,8 +46,8 @@ namespace POS_Backend.Repositories
                     throw new System.Exception("Proizvod nije pronadjen");
                 }
                 var stavkaRacuna = new STAVKA_RACUNA
-                {   
-                    
+                {
+
                     Kolicina = item.Kolicina,
                     Proizvod = proizvod,
                     ProizvodId = item.ProizvodId,
@@ -50,37 +55,20 @@ namespace POS_Backend.Repositories
                     Popust = item.Popust,
                     IznosPopusta = item.IznosPopusta,
                     Vrijednost = (proizvod.Cijena * item.Kolicina) - item.IznosPopusta,
-                    ZaglavljeRacuna= zaglavlje,
+                    ZaglavljeRacuna = zaglavlje,
                     ZaglavljeRacunaId = zaglavlje.Id,
                 };
-                zagRacuna.StavkeRacuna.Add(stavkaRacuna);
+                await _context.StavkeRacuna.AddAsync(stavkaRacuna);
+                await _context.SaveChangesAsync();
+
+                zaglavlje.StavkeRacuna.Add(stavkaRacuna);
+                await _context.SaveChangesAsync();
+
             }
-            //var actor = await _context.Actors.Where(u => u.Name == movieRoleDto.ActorName).SingleOrDefaultAsync();
-            //if (actor == null)
-            //{
-            //    actor = new Actor
-            //    {
-            //        Name = movieRoleDto.ActorName
-            //    };
-            //    _context.Actors.Add(actor);
-            //    await _context.SaveChangesAsync();
-            //    actor = await _context.Actors.Where(u => u.Name == movieRoleDto.ActorName).SingleOrDefaultAsync();
-            //}
-
-            //var movieRole = new MovieRole
-            //{
-            //    MovieId = movieRoleDto.MovieId,
-            //    ActorId = actor.Id,
-            //    RoleName = movieRoleDto.RoleName,
-            //    Actor = actor,
-            //    Movie = movie
-            //};
-            //_context.MovieRoles.Add(movieRole);
-            //movie.MovieRoles.Add(movieRole);
-            //await _context.SaveChangesAsync();
-
-
-
+        }
+        public async Task<IEnumerable<GetZaglavljeRacunaDto>> GetAllZaglavlja()
+        {
+            return await _context.ZaglavljeRacuna.ProjectTo<GetZaglavljeRacunaDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
     }
 }

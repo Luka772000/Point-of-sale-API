@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using POS_Backend.Models;
@@ -9,9 +10,10 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20221104131434_New")]
+    partial class New
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,13 +281,17 @@ namespace POS_Backend.Migrations
 
             modelBuilder.Entity("POS_Backend.Models.STAVKA_RACUNA", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<int>("ProizvodId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ZaglavljeRacunaId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Cijena")
                         .HasColumnType("numeric");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("IznosPopusta")
                         .HasColumnType("numeric");
@@ -296,18 +302,10 @@ namespace POS_Backend.Migrations
                     b.Property<double?>("Popust")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("ProizvodId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("Vrijednost")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("ZaglavljeRacunaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProizvodId");
+                    b.HasKey("ProizvodId", "ZaglavljeRacunaId");
 
                     b.HasIndex("ZaglavljeRacunaId");
 

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace POS_Backend.Migrations
 {
-    public partial class FixedKupac : Migration
+    public partial class New : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,23 +82,6 @@ namespace POS_Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Proizvodi", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StavkeRacuna",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Kolicina = table.Column<int>(type: "integer", nullable: false),
-                    Cijena = table.Column<int>(type: "integer", nullable: false),
-                    Popust = table.Column<double>(type: "double precision", nullable: true),
-                    IznosPopusta = table.Column<decimal>(type: "numeric", nullable: false),
-                    Vrijednost = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StavkeRacuna", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,27 +213,30 @@ namespace POS_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "STAVKA_RACUNA",
+                name: "StavkeRacuna",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ZaglavljeRacunaId = table.Column<int>(type: "integer", nullable: false),
                     ProizvodId = table.Column<int>(type: "integer", nullable: false),
-                    RacunId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    Kolicina = table.Column<int>(type: "integer", nullable: false),
+                    Cijena = table.Column<decimal>(type: "numeric", nullable: false),
+                    Popust = table.Column<double>(type: "double precision", nullable: true),
+                    IznosPopusta = table.Column<decimal>(type: "numeric", nullable: false),
+                    Vrijednost = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_STAVKA_RACUNA", x => x.Id);
+                    table.PrimaryKey("PK_StavkeRacuna", x => new { x.ProizvodId, x.ZaglavljeRacunaId });
                     table.ForeignKey(
-                        name: "FK_STAVKA_RACUNA_Proizvodi_ProizvodId",
+                        name: "FK_StavkeRacuna_Proizvodi_ProizvodId",
                         column: x => x.ProizvodId,
                         principalTable: "Proizvodi",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_STAVKA_RACUNA_StavkeRacuna_RacunId",
-                        column: x => x.RacunId,
-                        principalTable: "StavkeRacuna",
+                        name: "FK_StavkeRacuna_ZaglavljeRacuna_ZaglavljeRacunaId",
+                        column: x => x.ZaglavljeRacunaId,
+                        principalTable: "ZaglavljeRacuna",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -299,14 +285,9 @@ namespace POS_Backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_STAVKA_RACUNA_ProizvodId",
-                table: "STAVKA_RACUNA",
-                column: "ProizvodId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_STAVKA_RACUNA_RacunId",
-                table: "STAVKA_RACUNA",
-                column: "RacunId");
+                name: "IX_StavkeRacuna_ZaglavljeRacunaId",
+                table: "StavkeRacuna",
+                column: "ZaglavljeRacunaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ZaglavljeRacuna_Broj",
@@ -338,10 +319,7 @@ namespace POS_Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "STAVKA_RACUNA");
-
-            migrationBuilder.DropTable(
-                name: "ZaglavljeRacuna");
+                name: "StavkeRacuna");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -353,7 +331,7 @@ namespace POS_Backend.Migrations
                 name: "Proizvodi");
 
             migrationBuilder.DropTable(
-                name: "StavkeRacuna");
+                name: "ZaglavljeRacuna");
 
             migrationBuilder.DropTable(
                 name: "Kupci");

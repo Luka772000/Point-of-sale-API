@@ -1,18 +1,19 @@
 ﻿using POS_Backend.DTOs.Proizvod;
 using System.ComponentModel.DataAnnotations;
 
-namespace POS_Backend.DTOs.Racun
+namespace POS_Backend.DTOs.Racun.Getting
 {
-    public class STAVKA_RACUNADto
+    public class GetSTAVKA_RACUNADto
     {
+        public int Id { get; set; }
         [Required]
         public int Kolicina { get; set; }
         [Required]
-        public int Cijena { get; set; }
+        public decimal Cijena { get; set; }
         public double? Popust { get; set; }
         public decimal IznosPopusta { get; set; }
         [Required]
-        public int Vrijednost { get; set; }
+        public decimal Vrijednost { get; set; }
         public int ZaglavljeRacunaId { get; set; }
 
         [Required]

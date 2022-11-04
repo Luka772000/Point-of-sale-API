@@ -47,8 +47,7 @@ namespace POS_Backend.Models
                 .HasMany(k => k.ZaglavljeRacuna)
                 .WithOne(z => z.Kupac)
                 .HasForeignKey(z => z.KupacId);
-            modelBuilder.Entity<STAVKA_RACUNA>()
-                .HasKey(s => new { s.ProizvodId, s.ZaglavljeRacunaId });
+
             
 
 

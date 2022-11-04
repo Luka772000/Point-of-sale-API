@@ -1,11 +1,10 @@
-﻿using POS_Backend.DTOs.Racun;
-using POS_Backend.Models;
+﻿using POS_Backend.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace POS_Backend.DTOs.ZaglavljeRacunaDto
+namespace POS_Backend.DTOs.Racun.Creating
 {
     public class ZaglavljeRacunaDto
     {
