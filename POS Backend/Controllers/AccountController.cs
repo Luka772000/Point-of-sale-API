@@ -30,6 +30,8 @@ namespace POS_Backend.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
         }
+
+        //kreiranje korisnika
         [HttpPost("registerMember")]
         public async Task<ActionResult<AppUserDto>> RegisterMember(RegisterDto registerDto)
         {
@@ -54,7 +56,7 @@ namespace POS_Backend.Controllers
                 Email = user.Email
             };
     }
-
+        //logiranje korisnika
         [HttpPost("login")]
 
         public async Task<ActionResult<AppUserDto>> Login(LoginDto loginDto)
