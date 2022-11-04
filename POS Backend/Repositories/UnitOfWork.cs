@@ -16,14 +16,11 @@ namespace FilmBACKEND.Repositories
             _mapper = mapper;
             Proizvodi = new ProizvodRepository(_context, _mapper);
             Kupci = new KupacRepository(_context, _mapper);
-            //MovieRoles = new MovieRoleRepository(_context, _mapper);
-            //Users = new UserRepository(_context, _mapper);
+            Racuni = new RacunRepository(_context, _mapper);
         }
         public IProizvod Proizvodi{ get; private set; }
         public IKupac Kupci { get; private set; }
-        //public IUserRepository Users { get; private set; }
-        //public IPhotoService PhotoService { get; private set; }
-        //public IMovieRoleRepository MovieRoles { get; private set; }
+        public IRacun Racuni { get; private set; }
 
         public int Complete()
         {

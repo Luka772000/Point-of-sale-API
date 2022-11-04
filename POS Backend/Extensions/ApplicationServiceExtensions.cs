@@ -26,6 +26,8 @@ namespace POS_Backend.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IProizvod, ProizvodRepository>();
+            services.AddScoped<IKupac, KupacRepository>();
+            services.AddScoped<IRacun, RacunRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<Context>(options =>
             options.UseNpgsql(config.GetConnectionString("DevConnection")));

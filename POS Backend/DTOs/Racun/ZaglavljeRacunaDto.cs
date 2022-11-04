@@ -1,24 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using POS_Backend.DTOs.Racun;
+using POS_Backend.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace POS_Backend.Models
+namespace POS_Backend.DTOs.ZaglavljeRacunaDto
 {
-    [Index(nameof(Broj), IsUnique = true)]
-    public class ZAGLAVLJE_RACUNA
+    public class ZaglavljeRacunaDto
     {
-        [Key]
-        public int Id { get; set; }
-        public int Broj { get; set; }
         [Required]
         public DateTime Datum { get; set; }
         [Column(TypeName = "varchar(100)")]
         public string Napomena { get; set; }
         [Required]
         public int KupacId { get; set; }
-        public KUPAC Kupac { get; set; }
-        public List<STAVKA_RACUNA> StavkeRacuna{ get; set; }
-}
+        public List<STAVKA_RACUNADto> StavkeRacuna { get; set; }
+    }
 }

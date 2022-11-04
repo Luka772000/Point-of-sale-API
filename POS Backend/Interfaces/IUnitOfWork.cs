@@ -5,6 +5,7 @@ namespace POS_Backend.Interfaces
     {
         IKupac Kupci { get; }
         IProizvod Proizvodi { get; }
+        IRacun Racuni { get; }
         int Complete();
     }
 }

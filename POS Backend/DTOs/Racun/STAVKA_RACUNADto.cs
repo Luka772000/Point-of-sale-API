@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using POS_Backend.DTOs.Proizvod;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace POS_Backend.Models
+namespace POS_Backend.DTOs.Racun
 {
-    public class STAVKE_RACUNA
+    public class STAVKA_RACUNADto
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public int Kolicina { get; set; }
         [Required]
@@ -17,6 +13,10 @@ namespace POS_Backend.Models
         public decimal IznosPopusta { get; set; }
         [Required]
         public int Vrijednost { get; set; }
-        public List<STAVKA_RACUNA> StavkeRacuna { get; set; }
+        public int ZaglavljeRacunaId { get; set; }
+
+        [Required]
+        public int ProizvodId { get; set; }
+        public GetProizvodDto Proizvod { get; set; }
     }
 }
