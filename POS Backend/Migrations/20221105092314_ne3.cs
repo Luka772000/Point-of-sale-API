@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace POS_Backend.Migrations
 {
-    public partial class New : Migration
+    public partial class ne3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -196,7 +196,8 @@ namespace POS_Backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Broj = table.Column<int>(type: "integer", nullable: false),
+                    Broj = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Datum = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Napomena = table.Column<string>(type: "varchar(100)", nullable: true),
                     KupacId = table.Column<int>(type: "integer", nullable: false)
@@ -216,18 +217,19 @@ namespace POS_Backend.Migrations
                 name: "StavkeRacuna",
                 columns: table => new
                 {
-                    ZaglavljeRacunaId = table.Column<int>(type: "integer", nullable: false),
-                    ProizvodId = table.Column<int>(type: "integer", nullable: false),
-                    Id = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Kolicina = table.Column<int>(type: "integer", nullable: false),
                     Cijena = table.Column<decimal>(type: "numeric", nullable: false),
                     Popust = table.Column<double>(type: "double precision", nullable: true),
                     IznosPopusta = table.Column<decimal>(type: "numeric", nullable: false),
-                    Vrijednost = table.Column<decimal>(type: "numeric", nullable: false)
+                    Vrijednost = table.Column<decimal>(type: "numeric", nullable: false),
+                    ZaglavljeRacunaId = table.Column<int>(type: "integer", nullable: false),
+                    ProizvodId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StavkeRacuna", x => new { x.ProizvodId, x.ZaglavljeRacunaId });
+                    table.PrimaryKey("PK_StavkeRacuna", x => x.Id);
                     table.ForeignKey(
                         name: "FK_StavkeRacuna_Proizvodi_ProizvodId",
                         column: x => x.ProizvodId,
@@ -283,6 +285,11 @@ namespace POS_Backend.Migrations
                 table: "Proizvodi",
                 column: "Sifra",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StavkeRacuna_ProizvodId",
+                table: "StavkeRacuna",
+                column: "ProizvodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StavkeRacuna_ZaglavljeRacunaId",

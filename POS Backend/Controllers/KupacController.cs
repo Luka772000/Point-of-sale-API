@@ -55,7 +55,7 @@ namespace POS_Backend.Controllers
             try
             {
                 var kupci = await _unitOfWork.Kupci.GetAllKupci();
-                return Ok(kupci);
+                return kupci;
             }
             catch (Exception ex)
             {

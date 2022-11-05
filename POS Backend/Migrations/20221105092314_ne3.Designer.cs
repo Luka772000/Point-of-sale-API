@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221104140123_new1")]
-    partial class new1
+    [Migration("20221105092314_ne3")]
+    partial class ne3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,7 +324,9 @@ namespace POS_Backend.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("Broj")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("timestamp without time zone");

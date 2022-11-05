@@ -3,7 +3,7 @@
     public class GetKupacDto1
     {
         public int Id { get; set; }
-        public int Sifra { get; set; }
+        public string Sifra { get; set; }
         public string Naziv { get; set; }
         public string Adresa { get; set; }
         public string Mjesto { get; set; }
