@@ -35,7 +35,7 @@ namespace POS_Backend.Repositories
 
         public async Task UpdateKupac(UpdateKupacDto kupacDto)
         {
-            var kupac = await _context.Kupci.Where(u => u.Naziv == kupacDto.StariNaziv).SingleOrDefaultAsync();
+            var kupac = await _context.Kupci.Where(u => u.Id == kupacDto.Id).SingleOrDefaultAsync();
             if (kupac != null)
             {
                 kupac.Naziv = kupacDto.Naziv;

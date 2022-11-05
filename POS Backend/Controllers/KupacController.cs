@@ -78,7 +78,7 @@ namespace POS_Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
+        [HttpPut("Update/")]
         public async Task<ActionResult> UpdateKupac(UpdateKupacDto kupacDto)
         {
             _logger.LogInformation("UpdateProizvod initiated");

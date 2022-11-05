@@ -6,8 +6,7 @@ namespace POS_Backend.DTOs.Kupci
     public class UpdateKupacDto
     {
         [Required]
-        [Column(TypeName = "varchar(50)")]
-        public string StariNaziv { get; set; }
+        public int Id { get; set; }
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Naziv { get; set; }
