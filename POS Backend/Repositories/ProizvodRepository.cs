@@ -35,7 +35,7 @@ namespace POS_Backend.Repositories
 
         public async Task UpdateProizvod(UpdateProizvodDto proizvodDto)
         {
-            var proizvod = await _context.Proizvodi.Where(u => u.Naziv == proizvodDto.StariNaziv).SingleOrDefaultAsync();
+            var proizvod = await _context.Proizvodi.Where(u => u.Id == proizvodDto.Id).SingleOrDefaultAsync();
             if (proizvod != null)
             {
                 proizvod.Naziv = proizvodDto.Naziv;

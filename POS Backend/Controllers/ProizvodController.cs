@@ -54,7 +54,7 @@ namespace POS_Backend.Controllers
             try
             {
                 var Movies = await _unitOfWork.Proizvodi.GetAllProizvodi();
-                return Ok(Movies);
+                return Movies;
             }
             catch (Exception ex)
             {
