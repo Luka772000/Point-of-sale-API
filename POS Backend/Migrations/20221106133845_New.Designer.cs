@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221105092314_ne3")]
-    partial class ne3
+    [Migration("20221106133845_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
