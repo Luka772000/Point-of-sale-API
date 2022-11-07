@@ -4,8 +4,7 @@ namespace POS_Backend.DTOs.Proizvod
 {
     public class UpdateProizvodDto
     {
-        [Required]
-        public string StariNaziv { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Naziv { get; set; }
         [Required]

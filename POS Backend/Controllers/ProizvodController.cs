@@ -31,7 +31,8 @@ namespace POS_Backend.Controllers
             {
                 Naziv = proizvodDto.Naziv,
                 Cijena = proizvodDto.Cijena,
-                JedinicaMjere = proizvodDto.JedinicaMjere
+                JedinicaMjere = proizvodDto.JedinicaMjere,
+                Stanje = proizvodDto.Stanje
             };
 
             _logger.LogInformation("Kreiranje Proizvoda ");
@@ -54,7 +55,7 @@ namespace POS_Backend.Controllers
             try
             {
                 var Movies = await _unitOfWork.Proizvodi.GetAllProizvodi();
-                return Ok(Movies);
+                return Movies;
             }
             catch (Exception ex)
             {
@@ -92,6 +93,8 @@ namespace POS_Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
 
     }
 }
