@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class KupacController : ControllerBase
@@ -35,7 +35,7 @@ namespace POS_Backend.Controllers
                 Mjesto=kupacDto.Mjesto,
             };
 
-            _logger.LogInformation("Kreiranje Proizvoda ");
+            _logger.LogInformation("ADDKUPAC initiated");
             try
             {
                 _unitOfWork.Kupci.Add(kupac);
@@ -51,7 +51,7 @@ namespace POS_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetKupacDto>>> GetKupacList()
         {
-            _logger.LogInformation("Pokusaj vracanja ProizvodList");
+            _logger.LogInformation("GETKUPACLIST initiated");
             try
             {
                 var kupci = await _unitOfWork.Kupci.GetAllKupci();

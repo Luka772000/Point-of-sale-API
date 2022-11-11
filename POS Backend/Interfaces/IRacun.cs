@@ -7,7 +7,9 @@ namespace POS_Backend.Interfaces
 {
     public interface IRacun
     {
-        public Task CreateRacun(ZaglavljeRacunaDto racunDto);
-        public Task<IEnumerable<GetZaglavljeRacunaDto>> GetAllZaglavlja();
+        Task CreateRacun(ZaglavljeRacunaDto racunDto); 
+        Task<IEnumerable<GetZaglavljeRacunaDto>> GetAllZaglavlja();
+        Task DeleteRacun(int id);
+        
     }
 }

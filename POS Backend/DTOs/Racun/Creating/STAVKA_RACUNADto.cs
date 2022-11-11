@@ -6,6 +6,8 @@ namespace POS_Backend.DTOs.Racun.Creating
     public class STAVKA_RACUNADto
     {
         [Required]
+        public string Naziv { get; set; }
+        [Required]
         public int Kolicina { get; set; }
         [Required]
         public decimal Cijena { get; set; }
@@ -13,10 +15,7 @@ namespace POS_Backend.DTOs.Racun.Creating
         public decimal IznosPopusta { get; set; }
         [Required]
         public decimal Vrijednost { get; set; }
-        public int ZaglavljeRacunaId { get; set; }
-
         [Required]
         public int ProizvodId { get; set; }
-        public GetProizvodDto Proizvod { get; set; }
     }
 }

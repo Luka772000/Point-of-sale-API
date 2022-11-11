@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace POS_Backend.Migrations
 {
-    public partial class New : Migration
+    public partial class new1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -200,7 +200,8 @@ namespace POS_Backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Datum = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Napomena = table.Column<string>(type: "varchar(100)", nullable: true),
-                    KupacId = table.Column<int>(type: "integer", nullable: false)
+                    KupacId = table.Column<int>(type: "integer", nullable: false),
+                    UkupnaCijena = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,6 +220,7 @@ namespace POS_Backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Naziv = table.Column<string>(type: "text", nullable: true),
                     Kolicina = table.Column<int>(type: "integer", nullable: false),
                     Cijena = table.Column<decimal>(type: "numeric", nullable: false),
                     Popust = table.Column<double>(type: "double precision", nullable: true),

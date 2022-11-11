@@ -10,6 +10,7 @@ namespace POS_Backend.DTOs.Racun.Getting
     public class GetZaglavljeRacunaDto
     {
         public int Id { get; set; }
+        public int Sifra { get; set; }
         public int Broj { get; set; }
         [Required]
         public DateTime Datum { get; set; }
@@ -19,5 +20,6 @@ namespace POS_Backend.DTOs.Racun.Getting
         public int KupacId { get; set; }
         public GetKupacDto Kupac { get; set; }
         public List<GetSTAVKA_RACUNADto> StavkeRacuna { get; set; }
+        public decimal UkupnaCijena { get; set; }
     }
 }

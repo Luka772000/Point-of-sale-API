@@ -10,8 +10,8 @@ using POS_Backend.Models;
 namespace POS_Backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221106133845_New")]
-    partial class New
+    [Migration("20221109113326_new1")]
+    partial class new1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -295,6 +295,9 @@ namespace POS_Backend.Migrations
                     b.Property<int>("Kolicina")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Naziv")
+                        .HasColumnType("text");
+
                     b.Property<double?>("Popust")
                         .HasColumnType("double precision");
 
@@ -336,6 +339,9 @@ namespace POS_Backend.Migrations
 
                     b.Property<string>("Napomena")
                         .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("UkupnaCijena")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 

@@ -40,16 +40,10 @@ namespace POS_Backend.Models
                 .WithOne(s => s.Proizvod)
                 .HasForeignKey(s => s.ProizvodId)
                 .OnDelete(DeleteBehavior.NoAction);
-            //modelBuilder.Entity<PROIZVOD>()
-            //    .HasIndex(p => p.Sifra)
-            //    .IsUnique();
             modelBuilder.Entity<KUPAC>()
                 .HasMany(k => k.ZaglavljeRacuna)
                 .WithOne(z => z.Kupac)
                 .HasForeignKey(z => z.KupacId);
-
-            
-
 
         }
 

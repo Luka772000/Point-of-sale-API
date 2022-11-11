@@ -34,12 +34,12 @@ namespace POS_Backend.Repositories
                 Kupac = kupac,
                 KupacId = racunDto.KupacId,
                 Napomena = racunDto.Napomena,
+                UkupnaCijena = racunDto.UkupnaCijena,
             };
             await _context.ZaglavljeRacuna.AddAsync(zagRacuna);
             await _context.SaveChangesAsync();
             foreach (var item in racunDto.StavkeRacuna)
             {
-                var zaglavlje = await _context.ZaglavljeRacuna.Where(i => i.Id == item.ZaglavljeRacunaId).Include(i => i.StavkeRacuna).SingleOrDefaultAsync();
                 var proizvod = await _context.Proizvodi.Where(u => u.Id == item.ProizvodId).SingleOrDefaultAsync();
                 if (proizvod == null)
                 {
@@ -47,21 +47,21 @@ namespace POS_Backend.Repositories
                 }
                 var stavkaRacuna = new STAVKA_RACUNA
                 {
-
+                    Naziv = item.Naziv,
                     Kolicina = item.Kolicina,
                     Proizvod = proizvod,
                     ProizvodId = item.ProizvodId,
                     Cijena = proizvod.Cijena,
                     Popust = item.Popust,
                     IznosPopusta = item.IznosPopusta,
-                    Vrijednost = (proizvod.Cijena * item.Kolicina) - item.IznosPopusta,
-                    ZaglavljeRacuna = zaglavlje,
-                    ZaglavljeRacunaId = zaglavlje.Id,
+                    Vrijednost = item.Vrijednost,
+                    ZaglavljeRacuna = zagRacuna,
+                    ZaglavljeRacunaId = zagRacuna.Id,
                 };
                 await _context.StavkeRacuna.AddAsync(stavkaRacuna);
                 await _context.SaveChangesAsync();
 
-                zaglavlje.StavkeRacuna.Add(stavkaRacuna);
+                zagRacuna.StavkeRacuna.Add(stavkaRacuna);
                 await _context.SaveChangesAsync();
 
             }
@@ -69,6 +69,12 @@ namespace POS_Backend.Repositories
         public async Task<IEnumerable<GetZaglavljeRacunaDto>> GetAllZaglavlja()
         {
             return await _context.ZaglavljeRacuna.ProjectTo<GetZaglavljeRacunaDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+        public async Task DeleteRacun(int id)
+        {
+            var racun = await _context.ZaglavljeRacuna.FirstOrDefaultAsync(u => u.Id == id);
+            _context.ZaglavljeRacuna.Remove(racun);
+            await _context.SaveChangesAsync();
         }
     }
 }

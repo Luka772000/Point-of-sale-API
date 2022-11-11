@@ -21,5 +21,6 @@ namespace POS_Backend.Models
         public int KupacId { get; set; }
         public KUPAC Kupac { get; set; }
         public List<STAVKA_RACUNA> StavkeRacuna{ get; set; }
+        public decimal UkupnaCijena { get; set; }
 }
 }

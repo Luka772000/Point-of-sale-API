@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProizvodController : ControllerBase
@@ -35,7 +35,7 @@ namespace POS_Backend.Controllers
                 Stanje = proizvodDto.Stanje
             };
 
-            _logger.LogInformation("Kreiranje Proizvoda ");
+            _logger.LogInformation("ADDPROIZVOD initiated");
             try
             {
                 _unitOfWork.Proizvodi.Add(proizvod);
@@ -51,7 +51,7 @@ namespace POS_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetProizvodDto>>> GetProizvodList()
         {
-            _logger.LogInformation("Pokusaj vracana ProizvodList");
+            _logger.LogInformation("GETPROIZVODLIST initiated");
             try
             {
                 var Movies = await _unitOfWork.Proizvodi.GetAllProizvodi();
@@ -66,7 +66,7 @@ namespace POS_Backend.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteProizvod(int id)
         {
-            _logger.LogInformation("Delete movie initiated");
+            _logger.LogInformation("Delete proizvod initiated");
             try
             {
                 await _unitOfWork.Proizvodi.DeleteProizvod(id);

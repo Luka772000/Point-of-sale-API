@@ -15,5 +15,6 @@ namespace POS_Backend.DTOs.Racun.Creating
         [Required]
         public int KupacId { get; set; }
         public List<STAVKA_RACUNADto> StavkeRacuna { get; set; }
-    }
+        public decimal UkupnaCijena { get; set; }
+        }
 }

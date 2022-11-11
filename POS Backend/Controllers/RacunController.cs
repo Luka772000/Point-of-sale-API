@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using POS_Backend.DTOs.Racun.Creating;
 using POS_Backend.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace POS_Backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RacunController : ControllerBase
@@ -22,7 +25,7 @@ namespace POS_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRacun(ZaglavljeRacunaDto racunDto)
         {
-            _logger.LogInformation("Kreiranje Racuna ");
+            _logger.LogInformation("CREATERACUN initiated");
             try
             {
                await _unitOfWork.Racuni.CreateRacun(racunDto);
@@ -38,7 +41,7 @@ namespace POS_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult> GetRacunList()
         {
-            _logger.LogInformation("Pokusaj vracanja RacunList");
+            _logger.LogInformation("GETRACUNLIST initiated");
             try
             {
                 var racuni = await _unitOfWork.Racuni.GetAllZaglavlja();
@@ -50,5 +53,21 @@ namespace POS_Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpDelete("Delete/{id}")]
+        public async Task<ActionResult> DeleteRacun(int id)
+        {
+            _logger.LogInformation("DELETERACUN initiated");
+            try
+            {
+                await _unitOfWork.Racuni.DeleteRacun(id);
+                return Ok("Completed");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception Caught");
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

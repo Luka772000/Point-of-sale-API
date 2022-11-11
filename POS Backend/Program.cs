@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
-using POS_Backend.Models;
 using POS_Backend.Seeds;
 using System.Threading.Tasks;
 

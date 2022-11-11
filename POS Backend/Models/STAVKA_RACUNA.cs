@@ -9,6 +9,7 @@ namespace POS_Backend.Models
     {
         [Key]
         public int Id { get; set; }
+        public string Naziv { get; set; }
         [Required]
         public int Kolicina { get; set; }
         [Required]

@@ -293,6 +293,9 @@ namespace POS_Backend.Migrations
                     b.Property<int>("Kolicina")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Naziv")
+                        .HasColumnType("text");
+
                     b.Property<double?>("Popust")
                         .HasColumnType("double precision");
 
@@ -334,6 +337,9 @@ namespace POS_Backend.Migrations
 
                     b.Property<string>("Napomena")
                         .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("UkupnaCijena")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 

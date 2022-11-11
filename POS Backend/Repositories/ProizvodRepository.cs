@@ -28,8 +28,8 @@ namespace POS_Backend.Repositories
         }
         public async Task DeleteProizvod(int id)
         {
-            var movie = await _context.Proizvodi.FirstOrDefaultAsync(u => u.Id == id);
-            _context.Proizvodi.Remove(movie);
+            var proizvod = await _context.Proizvodi.FirstOrDefaultAsync(u => u.Id == id);
+            _context.Proizvodi.Remove(proizvod);
             await _context.SaveChangesAsync();
         }
 
