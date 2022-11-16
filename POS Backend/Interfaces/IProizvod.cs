@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Interfaces
 {
-    public interface IProizvod:IGenericRepository<PROIZVOD>
+    public interface IProizvod:IGenericRepository<Proizvod>
     {
+        Task CreateProizvod(CreateProizvodDto proizvodDto);
         Task<ActionResult<IEnumerable<GetProizvodDto>>> GetAllProizvodi();
         Task DeleteProizvod(int id);
         Task UpdateProizvod(UpdateProizvodDto proizvodDto);

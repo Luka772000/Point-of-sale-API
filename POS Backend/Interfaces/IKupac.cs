@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Interfaces
 {
-    public interface IKupac:IGenericRepository<KUPAC>
+    public interface IKupac:IGenericRepository<Kupac>
     {
         Task<ActionResult<IEnumerable<GetKupacDto>>> GetAllKupci();
         Task DeleteKupac(int id);

@@ -27,18 +27,10 @@ namespace POS_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProizvod(CreateProizvodDto proizvodDto)
         {
-            var proizvod = new PROIZVOD
-            {
-                Naziv = proizvodDto.Naziv,
-                Cijena = proizvodDto.Cijena,
-                JedinicaMjere = proizvodDto.JedinicaMjere,
-                Stanje = proizvodDto.Stanje
-            };
-
             _logger.LogInformation("ADDPROIZVOD initiated");
             try
             {
-                _unitOfWork.Proizvodi.Add(proizvod);
+                await _unitOfWork.Proizvodi.CreateProizvod(proizvodDto);
                 _unitOfWork.Complete();
                 return Ok();
             }

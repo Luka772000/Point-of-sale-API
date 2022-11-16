@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using POS_Backend.DTOs.Proizvod;
 using POS_Backend.DTOs.Racun.Creating;
 using POS_Backend.DTOs.Racun.Getting;
 using POS_Backend.Interfaces;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Repositories
 {
-    public class RacunRepository : GenericRepository<ZAGLAVLJE_RACUNA>, IRacun
+    public class RacunRepository : GenericRepository<ZaglavljeRacuna>, IRacun
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
@@ -28,7 +29,7 @@ namespace POS_Backend.Repositories
             {
                 throw new System.Exception("Kupac nije pronadjen");
             }
-            var zagRacuna = new ZAGLAVLJE_RACUNA
+            var zagRacuna = new ZaglavljeRacuna
             {
                 Datum = racunDto.Datum,
                 Kupac = kupac,
@@ -45,7 +46,7 @@ namespace POS_Backend.Repositories
                 {
                     throw new System.Exception("Proizvod nije pronadjen");
                 }
-                var stavkaRacuna = new STAVKA_RACUNA
+                var stavkaRacuna = new StavkaRacuna
                 {
                     Naziv = item.Naziv,
                     Kolicina = item.Kolicina,
@@ -75,6 +76,10 @@ namespace POS_Backend.Repositories
             var racun = await _context.ZaglavljeRacuna.FirstOrDefaultAsync(u => u.Id == id);
             _context.ZaglavljeRacuna.Remove(racun);
             await _context.SaveChangesAsync();
+        }
+        public async Task<IEnumerable<GetJedinicaDto>> GetJedinice()
+        {
+            return await _context.JediniceMjere.ProjectTo<GetJedinicaDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
     }
 }

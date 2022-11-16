@@ -8,10 +8,10 @@ namespace POS_Backend.DTOs.Proizvod
         [Required]
         public string Naziv { get; set; }
         [Required]
-        public string JedinicaMjere { get; set; }
-        [Required]
         public decimal Cijena { get; set; }
         [Required]
         public int Stanje { get; set; }
+        [Required]
+        public int JedinicaId { get; set; }
     }
 }

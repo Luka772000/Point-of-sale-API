@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using POS_Backend.DTOs.Kupci;
@@ -28,7 +27,7 @@ namespace POS_Backend.Controllers
         [HttpPost]
         public async Task<ActionResult> AddKupac(CreateKupacDto kupacDto)
         {
-            var kupac = new KUPAC
+            var kupac = new Kupac
             {
                 Naziv= kupacDto.Naziv,
                 Adresa=kupacDto.Adresa,

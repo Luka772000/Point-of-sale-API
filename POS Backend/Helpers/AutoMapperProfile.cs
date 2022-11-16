@@ -14,18 +14,18 @@ namespace POS_Backend.Helpers
         {
             CreateMap<AppUser, RegisterDto>().ReverseMap();
             CreateMap<AppUser, LoginDto>().ReverseMap();
-            CreateMap<PROIZVOD, CreateProizvodDto>().ReverseMap();
-            CreateMap<PROIZVOD, GetProizvodDto>().ReverseMap();
-            CreateMap<KUPAC, CreateKupacDto>().ReverseMap();
-            CreateMap<KUPAC, GetKupacDto>().ReverseMap();
-            CreateMap<PROIZVOD, UpdateProizvodDto>().ReverseMap();
-            CreateMap<KUPAC, UpdateKupacDto>().ReverseMap();
-            CreateMap<ZAGLAVLJE_RACUNA, GetZaglavljeRacunaDto>().ReverseMap();
-            CreateMap<STAVKA_RACUNA, GetSTAVKA_RACUNADto>().ReverseMap();
-            CreateMap<KUPAC, GetKupacDto1>().ReverseMap();
-            CreateMap<ZAGLAVLJE_RACUNA, ZaglavljeRacunaDto>().ReverseMap();
-            CreateMap<STAVKA_RACUNA, STAVKA_RACUNADto>().ReverseMap();
-
+            CreateMap<Proizvod, CreateProizvodDto>().ReverseMap();
+            CreateMap<Proizvod, GetProizvodDto>().ReverseMap();
+            CreateMap<Kupac, CreateKupacDto>().ReverseMap();
+            CreateMap<Kupac, GetKupacDto>().ReverseMap();
+            CreateMap<Proizvod, UpdateProizvodDto>().ReverseMap();
+            CreateMap<Kupac, UpdateKupacDto>().ReverseMap();
+            CreateMap<ZaglavljeRacuna, GetZaglavljeRacunaDto>().ReverseMap();
+            CreateMap<StavkaRacuna, GetStavkaRacunaDto>().ReverseMap();
+            CreateMap<Kupac, GetKupacDto1>().ReverseMap();
+            CreateMap<ZaglavljeRacuna, ZaglavljeRacunaDto>().ReverseMap();
+            CreateMap<StavkaRacuna, StavkaRacunaDto>().ReverseMap();
+            CreateMap<JedinicaMjere, GetJedinicaDto>().ReverseMap();
 
 
         }

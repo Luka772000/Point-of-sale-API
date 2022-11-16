@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Repositories
 {
-    public class KupacRepository : GenericRepository<KUPAC>, IKupac
+    public class KupacRepository : GenericRepository<Kupac>, IKupac
     {
         private readonly Context _context;
         private readonly IMapper _mapper;

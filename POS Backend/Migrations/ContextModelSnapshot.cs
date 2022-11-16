@@ -214,7 +214,22 @@ namespace POS_Backend.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.KUPAC", b =>
+            modelBuilder.Entity("POS_Backend.Models.JedinicaMjere", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Naziv")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JediniceMjere");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.Kupac", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +258,7 @@ namespace POS_Backend.Migrations
                     b.ToTable("Kupci");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.PROIZVOD", b =>
+            modelBuilder.Entity("POS_Backend.Models.Proizvod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,9 +268,8 @@ namespace POS_Backend.Migrations
                     b.Property<decimal>("Cijena")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("JedinicaMjere")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("JedinicaId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Naziv")
                         .IsRequired()
@@ -271,13 +285,15 @@ namespace POS_Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JedinicaId");
+
                     b.HasIndex("Sifra")
                         .IsUnique();
 
                     b.ToTable("Proizvodi");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.STAVKA_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.StavkaRacuna", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -317,7 +333,7 @@ namespace POS_Backend.Migrations
                     b.ToTable("StavkeRacuna");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.ZaglavljeRacuna", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -406,15 +422,26 @@ namespace POS_Backend.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.STAVKA_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.Proizvod", b =>
                 {
-                    b.HasOne("POS_Backend.Models.PROIZVOD", "Proizvod")
+                    b.HasOne("POS_Backend.Models.JedinicaMjere", "JedinicaMjere")
+                        .WithMany("Proizvodi")
+                        .HasForeignKey("JedinicaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JedinicaMjere");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.StavkaRacuna", b =>
+                {
+                    b.HasOne("POS_Backend.Models.Proizvod", "Proizvod")
                         .WithMany("StavkeRacuna")
                         .HasForeignKey("ProizvodId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("POS_Backend.Models.ZAGLAVLJE_RACUNA", "ZaglavljeRacuna")
+                    b.HasOne("POS_Backend.Models.ZaglavljeRacuna", "ZaglavljeRacuna")
                         .WithMany("StavkeRacuna")
                         .HasForeignKey("ZaglavljeRacunaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -425,9 +452,9 @@ namespace POS_Backend.Migrations
                     b.Navigation("ZaglavljeRacuna");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.ZaglavljeRacuna", b =>
                 {
-                    b.HasOne("POS_Backend.Models.KUPAC", "Kupac")
+                    b.HasOne("POS_Backend.Models.Kupac", "Kupac")
                         .WithMany("ZaglavljeRacuna")
                         .HasForeignKey("KupacId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,17 +473,22 @@ namespace POS_Backend.Migrations
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.KUPAC", b =>
+            modelBuilder.Entity("POS_Backend.Models.JedinicaMjere", b =>
+                {
+                    b.Navigation("Proizvodi");
+                });
+
+            modelBuilder.Entity("POS_Backend.Models.Kupac", b =>
                 {
                     b.Navigation("ZaglavljeRacuna");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.PROIZVOD", b =>
+            modelBuilder.Entity("POS_Backend.Models.Proizvod", b =>
                 {
                     b.Navigation("StavkeRacuna");
                 });
 
-            modelBuilder.Entity("POS_Backend.Models.ZAGLAVLJE_RACUNA", b =>
+            modelBuilder.Entity("POS_Backend.Models.ZaglavljeRacuna", b =>
                 {
                     b.Navigation("StavkeRacuna");
                 });

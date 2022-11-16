@@ -14,7 +14,7 @@ namespace POS_Backend.DTOs.Racun.Creating
         public string Napomena { get; set; }
         [Required]
         public int KupacId { get; set; }
-        public List<STAVKA_RACUNADto> StavkeRacuna { get; set; }
+        public List<StavkaRacunaDto> StavkeRacuna { get; set; }
         public decimal UkupnaCijena { get; set; }
         }
 }

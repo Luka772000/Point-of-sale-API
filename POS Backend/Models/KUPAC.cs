@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS_Backend.Models
 {
-    public class KUPAC
+    public class Kupac
     {
         [Key]
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace POS_Backend.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Mjesto { get; set; }
-        public List<ZAGLAVLJE_RACUNA> ZaglavljeRacuna { get; set; }
+        public List<ZaglavljeRacuna> ZaglavljeRacuna { get; set; }
     }
 }

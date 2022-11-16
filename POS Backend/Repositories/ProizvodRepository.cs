@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Repositories
 {
-    public class ProizvodRepository : GenericRepository<PROIZVOD>, IProizvod
+    public class ProizvodRepository : GenericRepository<Proizvod>, IProizvod
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
@@ -32,16 +32,31 @@ namespace POS_Backend.Repositories
             _context.Proizvodi.Remove(proizvod);
             await _context.SaveChangesAsync();
         }
-
+        public async Task CreateProizvod(CreateProizvodDto proizvodDto)
+        {
+            var jedinica = _context.JediniceMjere.Where(i => i.Id == proizvodDto.JedinicaId).FirstOrDefault();
+            var proizvod = new Proizvod
+            {
+                Naziv = proizvodDto.Naziv,
+                Cijena = proizvodDto.Cijena,
+                JedinicaId = proizvodDto.JedinicaId,
+                Stanje = proizvodDto.Stanje,
+                JedinicaMjere = jedinica,
+            };
+            await _context.Proizvodi.AddAsync(proizvod);
+            await _context.SaveChangesAsync();
+        }
         public async Task UpdateProizvod(UpdateProizvodDto proizvodDto)
         {
             var proizvod = await _context.Proizvodi.Where(u => u.Id == proizvodDto.Id).SingleOrDefaultAsync();
+            var jedinica = await _context.JediniceMjere.Where(u => u.Id == proizvodDto.JedinicaId).SingleOrDefaultAsync();
             if (proizvod != null)
             {
                 proizvod.Naziv = proizvodDto.Naziv;
                 proizvod.Cijena = proizvodDto.Cijena;
                 proizvod.Stanje = proizvodDto.Stanje;
-                proizvod.JedinicaMjere = proizvodDto.JedinicaMjere;
+                proizvod.JedinicaId = proizvodDto.JedinicaId;
+                proizvod.JedinicaMjere = jedinica;
             }
             if (proizvod == null)
             {

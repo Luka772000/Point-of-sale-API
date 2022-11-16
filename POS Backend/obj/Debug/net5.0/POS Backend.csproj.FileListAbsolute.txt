@@ -263,3 +263,5 @@ C:\Users\Ivan\Desktop\LogiRegDodavanje\POS Backend\obj\Debug\net5.0\refint\POS B
 C:\Users\Ivan\Desktop\LogiRegDodavanje\POS Backend\obj\Debug\net5.0\POS Backend.pdb
 C:\Users\Ivan\Desktop\LogiRegDodavanje\POS Backend\obj\Debug\net5.0\POS Backend.genruntimeconfig.cache
 C:\Users\Ivan\Desktop\LogiRegDodavanje\POS Backend\obj\Debug\net5.0\ref\POS Backend.dll
+C:\Users\Luka\Desktop\Nova mapa (5)\POS Backend\bin\Debug\net5.0\Seeds\JediniceMjereSeedData.json
+C:\Users\Luka\Desktop\Nova mapa (5)\POS Backend\bin\Debug\net5.0\Seeds\ProizvodiSeedData.json

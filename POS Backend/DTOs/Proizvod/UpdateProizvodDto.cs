@@ -12,12 +12,10 @@ namespace POS_Backend.DTOs.Proizvod
         public string Naziv { get; set; }
         [Required]
         [Column(TypeName = "varchar(50)")]
-        public string JedinicaMjere { get; set; }
-        [Required]
-        [Column(TypeName = "varchar(50)")]
         public decimal Cijena { get; set; }
         [Required]
         public int Stanje { get; set; }
+        public int JedinicaId { get; set; }
         
     }
 }

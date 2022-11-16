@@ -19,7 +19,7 @@ namespace POS_Backend.DTOs.Racun.Getting
         [Required]
         public int KupacId { get; set; }
         public GetKupacDto Kupac { get; set; }
-        public List<GetSTAVKA_RACUNADto> StavkeRacuna { get; set; }
+        public List<GetStavkaRacunaDto> StavkeRacuna { get; set; }
         public decimal UkupnaCijena { get; set; }
     }
 }
