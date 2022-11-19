@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace POS_Backend.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class KupacController : ControllerBase

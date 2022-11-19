@@ -1,0 +1,62 @@
+﻿[
+  {
+    "Naziv": "Marko",
+    "Adresa": "Kralja Tomislava 35",
+    "Mjesto": "Orasje"
+  },
+  {
+    "Naziv": "Ivan",
+    "Adresa": "Kralja Tomislava 20",
+    "Mjesto": "Domaljevac"
+  },
+  {
+    "Naziv": "Slaven",
+    "Adresa": "Kralja Zvonimira 1",
+    "Mjesto": "Samac"
+  },
+  {
+    "Naziv": "Petar",
+    "Adresa": "Stjepana Radica 35",
+    "Mjesto": "Orasje"
+  },
+  {
+    "Naziv": "Vinko",
+    "Adresa": "Nikole Tesle 35",
+    "Mjesto": "Ostra Luka"
+  },
+  {
+    "Naziv": "Alen",
+    "Adresa": "Kralja Tomislava 17",
+    "Mjesto": "Doboj"
+  },
+  {
+    "Naziv": "Nevenko",
+    "Adresa": "Radna",
+    "Mjesto": "Zenica"
+  },
+  {
+    "Naziv": "Zeljko",
+    "Adresa": "Slobodna 23",
+    "Mjesto": "Bok"
+  },
+  {
+    "Naziv": "Ana",
+    "Adresa": "Matije Gubca 34A",
+    "Mjesto": "Orasje"
+  },
+  {
+    "Naziv": "Marija",
+    "Adresa": "Kralja Tomislava 15",
+    "Mjesto": "Orasje"
+  },
+  {
+    "Naziv": "Zaklina",
+    "Adresa": "Goluba 23",
+    "Mjesto": "Orasje"
+  },
+  {
+    "Naziv": "Grmalj",
+    "Adresa": "Goluba 21",
+    "Mjesto": "Tuzla"
+  }
+]
