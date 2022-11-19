@@ -10,7 +10,7 @@
     "Cijena": 15,
     "Stanje": 60,
     "JedinicaId": 2
- },
+  },
   {
     "Naziv": "Jabuka",
     "Cijena": 2,
@@ -88,7 +88,61 @@
     "Cijena": 9,
     "Stanje": 50,
     "JedinicaId": 1
+  },
+  {
+    "Naziv": "Makarone",
+    "Cijena": 10,
+    "Stanje": 50,
+    "JedinicaId": 2
+  },
+  {
+    "Naziv": "Pasteta",
+    "Cijena": 1,
+    "Stanje": 50,
+    "JedinicaId": 3
+  },
+  {
+    "Naziv": "Paradajz",
+    "Cijena": 2,
+    "Stanje": 50,
+    "JedinicaId": 5
+  },
+  {
+    "Naziv": "Salama cekin",
+    "Cijena": 12,
+    "Stanje": 50,
+    "JedinicaId": 5
+  },
+  {
+    "Naziv": "Salama svinjeca",
+    "Cijena": 11,
+    "Stanje": 50,
+    "JedinicaId": 5
+  },
+  {
+    "Naziv": "Salama piko",
+    "Cijena": 10,
+    "Stanje": 50,
+    "JedinicaId": 5
+  },
+  {
+    "Naziv": "Brasno",
+    "Cijena": 10,
+    "Stanje": 50,
+    "JedinicaId": 1
+  },
+  {
+    "Naziv": "Ulje",
+    "Cijena": 9,
+    "Stanje": 50,
+    "JedinicaId": 2
+  },
+  {
+    "Naziv": "Torta",
+    "Cijena": 10,
+    "Stanje": 50,
+    "JedinicaId": 1
   }
-  
+
 
 ]

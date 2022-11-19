@@ -20,14 +20,21 @@ namespace POS_Backend.Seeds
             var jedinice = JsonSerializer.Deserialize<List<JedinicaMjere>>(JediniceData);
             var ProizvodiData = await System.IO.File.ReadAllTextAsync("Seeds/ProizvodiSeedData.json");
             var proizvodi = JsonSerializer.Deserialize<List<Proizvod>>(ProizvodiData);
+            var KupciData = await System.IO.File.ReadAllTextAsync("Seeds/KupciSeedData.json");
+            var kupci = JsonSerializer.Deserialize<List<Kupac>>(KupciData);
             if (users == null) return;
             if (jedinice == null) return;
+            if (kupci == null) return;
+            
             var roles = new List<AppRole>
             {
                 new AppRole{Name= "SuperAdmin"},
                 new AppRole{Name= "Admin"},
             };
-
+            foreach (var kupac in kupci)
+            {
+                await _context.Kupci.AddAsync(kupac);
+            }
             foreach (var role in roles)
             {
                 await roleManager.CreateAsync(role);
@@ -47,6 +54,7 @@ namespace POS_Backend.Seeds
             {
                 await _context.JediniceMjere.AddAsync(jedinica);
             }
+            
             foreach (var proizvod in proizvodi)
             {
                 proizvod.JedinicaMjere = await _context.JediniceMjere.FirstOrDefaultAsync(x => x.Id == proizvod.JedinicaId);
