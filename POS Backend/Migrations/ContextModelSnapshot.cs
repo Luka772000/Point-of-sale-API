@@ -345,8 +345,8 @@ namespace POS_Backend.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("Datum")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("KupacId")
                         .HasColumnType("integer");

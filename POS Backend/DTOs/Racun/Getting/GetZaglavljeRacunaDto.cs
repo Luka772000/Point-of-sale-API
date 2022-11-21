@@ -13,7 +13,7 @@ namespace POS_Backend.DTOs.Racun.Getting
         public int Sifra { get; set; }
         public int Broj { get; set; }
         [Required]
-        public DateTime Datum { get; set; }
+        public DateTimeOffset Datum { get; set; }
         [Column(TypeName = "varchar(100)")]
         public string Napomena { get; set; }
         [Required]

@@ -59,6 +59,7 @@ namespace POS_Backend.Repositories
                     ZaglavljeRacuna = zagRacuna,
                     ZaglavljeRacunaId = zagRacuna.Id,
                 };
+                proizvod.Stanje = proizvod.Stanje - item.Kolicina;
                 await _context.StavkeRacuna.AddAsync(stavkaRacuna);
                 await _context.SaveChangesAsync();
 

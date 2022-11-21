@@ -14,7 +14,7 @@ namespace POS_Backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Broj { get; set; }
         [Required]
-        public DateTime Datum { get; set; }
+        public DateTimeOffset Datum { get; set; }
         [Column(TypeName = "varchar(100)")]
         public string Napomena { get; set; }
         [Required]
