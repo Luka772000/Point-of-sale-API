@@ -1,4 +1,5 @@
 ﻿using POS_Backend.DTOs.Kupci;
+using POS_Backend.DTOs.User;
 using POS_Backend.Models;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,7 @@ namespace POS_Backend.DTOs.Racun.Getting
         public GetKupacDto Kupac { get; set; }
         public List<GetStavkaRacunaDto> StavkeRacuna { get; set; }
         public decimal UkupnaCijena { get; set; }
+        public int UserId { get; set; }
+        public AppUserDto User { get; set; }
     }
 }

@@ -47,13 +47,17 @@ namespace POS_Backend.Models
                 .HasMany(k => k.ZaglavljeRacuna)
                 .WithOne(z => z.Kupac)
                 .HasForeignKey(z => z.KupacId);
+            modelBuilder.Entity<AppUser>()
+                .HasMany(zr => zr.ZaglavljaRacuna)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
 
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Proizvod> Proizvodi { get; set; }
         public DbSet<Kupac> Kupci { get; set; }
-        public DbSet<ZaglavljeRacuna> ZaglavljeRacuna { get; set; }
+        public DbSet<ZaglavljeRacuna> ZaglavljaRacuna { get; set; }
         public DbSet<StavkaRacuna> StavkeRacuna { get; set; }
         public DbSet<JedinicaMjere> JediniceMjere { get; set; }
         

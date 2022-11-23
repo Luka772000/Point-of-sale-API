@@ -357,6 +357,9 @@ namespace POS_Backend.Migrations
                     b.Property<decimal>("UkupnaCijena")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Broj")
@@ -364,7 +367,9 @@ namespace POS_Backend.Migrations
 
                     b.HasIndex("KupacId");
 
-                    b.ToTable("ZaglavljeRacuna");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ZaglavljaRacuna");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -460,7 +465,15 @@ namespace POS_Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("POS_Backend.Models.AppUser", "User")
+                        .WithMany("ZaglavljaRacuna")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Kupac");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("POS_Backend.Models.AppRole", b =>
@@ -471,6 +484,8 @@ namespace POS_Backend.Migrations
             modelBuilder.Entity("POS_Backend.Models.AppUser", b =>
                 {
                     b.Navigation("UserRoles");
+
+                    b.Navigation("ZaglavljaRacuna");
                 });
 
             modelBuilder.Entity("POS_Backend.Models.JedinicaMjere", b =>

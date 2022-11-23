@@ -25,6 +25,7 @@ namespace POS_Backend.Repositories
         public async Task CreateRacun(ZaglavljeRacunaDto racunDto)
         {
             var kupac = await _context.Kupci.Where(u => u.Id == racunDto.KupacId).Include(i => i.ZaglavljeRacuna).SingleOrDefaultAsync();
+            var user = await _context.AppUsers.Where(i => i.Id == racunDto.UserId).SingleOrDefaultAsync();
             if (kupac == null)
             {
                 throw new System.Exception("Kupac nije pronadjen");
@@ -36,12 +37,14 @@ namespace POS_Backend.Repositories
                 KupacId = racunDto.KupacId,
                 Napomena = racunDto.Napomena,
                 UkupnaCijena = racunDto.UkupnaCijena,
+                User = user,
             };
-            await _context.ZaglavljeRacuna.AddAsync(zagRacuna);
+            await _context.ZaglavljaRacuna.AddAsync(zagRacuna);
             await _context.SaveChangesAsync();
             foreach (var item in racunDto.StavkeRacuna)
             {
                 var proizvod = await _context.Proizvodi.Where(u => u.Id == item.ProizvodId).SingleOrDefaultAsync();
+                
                 if (proizvod == null)
                 {
                     throw new System.Exception("Proizvod nije pronadjen");
@@ -70,12 +73,12 @@ namespace POS_Backend.Repositories
         }
         public async Task<IEnumerable<GetZaglavljeRacunaDto>> GetAllZaglavlja()
         {
-            return await _context.ZaglavljeRacuna.ProjectTo<GetZaglavljeRacunaDto>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _context.ZaglavljaRacuna.ProjectTo<GetZaglavljeRacunaDto>(_mapper.ConfigurationProvider).OrderByDescending(i=>i.Datum).ToListAsync();
         }
         public async Task DeleteRacun(int id)
         {
-            var racun = await _context.ZaglavljeRacuna.FirstOrDefaultAsync(u => u.Id == id);
-            _context.ZaglavljeRacuna.Remove(racun);
+            var racun = await _context.ZaglavljaRacuna.FirstOrDefaultAsync(u => u.Id == id);
+            _context.ZaglavljaRacuna.Remove(racun);
             await _context.SaveChangesAsync();
         }
         public async Task<IEnumerable<GetJedinicaDto>> GetJedinice()

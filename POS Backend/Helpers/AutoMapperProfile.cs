@@ -14,6 +14,7 @@ namespace POS_Backend.Helpers
         {
             CreateMap<AppUser, RegisterDto>().ReverseMap();
             CreateMap<AppUser, LoginDto>().ReverseMap();
+            CreateMap<AppUser, AppUserDto>().ReverseMap();
             CreateMap<Proizvod, CreateProizvodDto>().ReverseMap();
             CreateMap<Proizvod, GetProizvodDto>().ReverseMap();
             CreateMap<Kupac, CreateKupacDto>().ReverseMap();

@@ -22,5 +22,7 @@ namespace POS_Backend.Models
         public Kupac Kupac { get; set; }
         public List<StavkaRacuna> StavkeRacuna{ get; set; }
         public decimal UkupnaCijena { get; set; }
-}
+        public int UserId { get; set; }
+        public AppUser User { get; set; }
+    }
 }

@@ -7,5 +7,6 @@ namespace POS_Backend.Models
     public class AppUser : IdentityUser<int>
     {
         public List<AppUserRole> UserRoles { get; set; }
+        public List<ZaglavljeRacuna> ZaglavljaRacuna { get; set; }
     }
 }
